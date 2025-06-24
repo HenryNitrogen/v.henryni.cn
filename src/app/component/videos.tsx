@@ -1,6 +1,4 @@
 'use client'
-
-import { useSession } from 'next-auth/react';
 import { Avatar } from '@mui/material';
 import styles from '../ui/videos.module.css';
 import { useEffect, useState } from 'react';
