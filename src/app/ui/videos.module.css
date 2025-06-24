@@ -1,0 +1,129 @@
+.main {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 20px;
+  margin-top: 100px;
+  gap: 20px;
+}
+
+/* 卡片的毛玻璃主体 */
+.cards {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  margin-top: 50px;
+  border-radius: 15px;
+
+  /* 半透明背景 + 边框 */
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  /* 外阴影 + 内高光 */
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  /* 高饱和度模糊 */
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.cards:hover {
+  transform: scale(1.02);
+}
+
+/* 流光高光叠层 */
+.cards::before {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  transform: rotate(25deg) translateX(-50%) translateY(-50%);
+  pointer-events: none;
+  animation: sheen 6s ease-in-out infinite;
+}
+
+@keyframes sheen {
+  0%   { transform: rotate(25deg) translate(-100%, -100%); }
+  50%  { transform: rotate(25deg) translate(100%, 100%); }
+  100% { transform: rotate(25deg) translate(-100%, -100%); }
+}
+
+/* 当未登录时卡片打上模糊 */
+.cards.blurred {
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+/* 登录提示浮层 */
+.loginOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 10;
+}
+
+/* 视频区域保持原来比例 */
+.v {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+.v video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 下面信息区可以保留你的原样式，也可以做小微调 */
+.infobox {
+  display: flex;
+  background: transparent;
+  padding: 10px;
+  flex: 1;
+}
+.au {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.channelicon {
+  align-self: center;
+}
+.name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+.description {
+  flex: 4;
+}
+.wenzi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.date, .views {
+  font-size: 12px;
+  color: #666;
+}
